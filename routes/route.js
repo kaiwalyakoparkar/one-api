@@ -5,6 +5,9 @@ const path = require('path');
 const router = express.Router();
 const data = require(path.join(__dirname, '../data/schoolData.js'));
 
+router.get('/', (res, res) => {
+    res.send(`<h1>head over to <a href="/api/all">all data</></h1>`);
+});
 router.get('/api/all', (req, res) => {
     res.status(200).json(data);
 });
