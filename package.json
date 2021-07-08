@@ -1,0 +1,23 @@
+{
+  "name": "one-api",
+  "version": "1.0.0",
+  "description": "This is first all in one api",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "express",
+    "node",
+    "api",
+    "all-in-one"
+  ],
+  "author": "Kaiwalya Koparkar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
