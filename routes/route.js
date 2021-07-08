@@ -6,11 +6,11 @@ const router = express.Router();
 const data = require(path.join(__dirname, '../data/schoolData.js'));
 
 router.get('/api/all', (req, res) => {
-    res.status(200).send(data);
+    res.status(200).json(data);
 });
 
 router.get('/api/student/all', (req, res) => {
-    res.status(200).send(data.student);
+    res.status(200).json(data.student);
 });
 
 router.get('/api/student/name/:name', (req, res) => {
@@ -18,14 +18,14 @@ router.get('/api/student/name/:name', (req, res) => {
         return e.name == req.params.name;
     });
 
-    res.status(200).send(MyStudent);
+    res.status(200).json(MyStudent);
 });
 
 router.get('/api/student/rollno/:roll', (req, res) => {
     const MyStudent = data.student.filter((e) => {
         return e.rollno == parseInt(req.params.roll);
     });
-    res.status(200).send(MyStudent);
+    res.status(200).json(MyStudent);
 });
 
 router.get('/api/student/result/:pass', (req, res) => {
@@ -33,11 +33,11 @@ router.get('/api/student/result/:pass', (req, res) => {
         return e.pass == Boolean(req.params.pass);
     });
 
-    res.status(200).send(MyStudents);
+    res.status(200).json(MyStudents);
 });
 
 router.get('/api/teacher/all', (req, res) => {
-    res.status(200).send(data.teacher);
+    res.status(200).json(data.teacher);
 });
 
 router.get('/api/teacher/name/:name', (req, res) => {
@@ -45,14 +45,14 @@ router.get('/api/teacher/name/:name', (req, res) => {
         return e.name == req.params.name;
     });
 
-    res.status(200).send(myTeacher);
+    res.status(200).json(myTeacher);
 });
 
 router.get('/api/teacher/id/:id', (req, res) => {
     const myTeacher = data.teacher.filter((e) => {
         return e.id == parseInt(req.params.id);
     });
-    res.status(200).send(myTeacher[0]);
+    res.status(200).json(myTeacher[0]);
 });
 
 router.get('/api/teacher/subject/:subject', (req,res) => {
@@ -60,7 +60,7 @@ router.get('/api/teacher/subject/:subject', (req,res) => {
         return e.subject == req.params.subject;
     });
 
-    res.status(200).send(myTeacher);
+    res.status(200).json(myTeacher);
 });
 
 module.exports = router;
