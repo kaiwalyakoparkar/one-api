@@ -1,12 +1,11 @@
-const e = require('express');
 const express = require('express');
-const { resolve } = require('path');
+const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 const data = require(path.join(__dirname, '../data/schoolData.js'));
 
 router.get('/', (req, res) => {
-    res.send(`<h1>head over to <a href="/api/all">all data</></h1>`);
+    res.sendFile(path.join(__dirname, '../public/home.html'));
 });
 router.get('/api/all', (req, res) => {
     res.status(200).send(data);
