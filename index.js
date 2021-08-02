@@ -1,11 +1,25 @@
-const express  = require('express');
-const path = require('path');
+const fs = require('fs');
+const express = require('express');
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = 5000;
 
-app.use('/', require(path.join(__dirname, './routes/route')));
+// app.get('/',(req, res) => {
+// 	res.send('Hey, How are you?');
+// });
+
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
+
+app.get('/api/v1/tours', (req, res) => {
+	res.json({
+		status: 'success',
+		result: tours.length,
+		data: {
+			tours
+		}
+	});
+});
 
 app.listen(port, () => {
-    console.log(`Started server on http://localhost:${port}`);
-})
+	console.log(`Server started on http://localhost:${port}`);
+});
