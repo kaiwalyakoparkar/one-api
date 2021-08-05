@@ -37,6 +37,17 @@ app.get('/api/v1/tours/:id', (req, res) => {
 	// 	return ele.id === id;
 	// });
 
+
+	// if(id > tours.length){ //This is also one of the way to check invalid url
+	if(!tour){
+		res.status(404).send({
+			status: "fail",
+			message: "Invalid ID"
+		});
+		return;
+	}
+
+
 	res.status(200).send({
 		status: "success",
 		data: {
