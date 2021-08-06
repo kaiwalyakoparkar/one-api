@@ -10,6 +10,7 @@ const tours = require(path.join(__dirname, './dev-data/data/tours-simple.json'))
 //Done for the POST method
 app.use(express.json());
 
+//================ Get all tours =========================
 app.get('/api/v1/tours', (req, res) => {
 
 	res.json({
@@ -21,6 +22,7 @@ app.get('/api/v1/tours', (req, res) => {
 	});
 });
 
+//================ Get Single tours =========================
 app.get('/api/v1/tours/:id', (req, res) => {
 	// console.log(req.params);
 
@@ -57,6 +59,7 @@ app.get('/api/v1/tours/:id', (req, res) => {
 });
 
 
+//================ Add a new tours =========================
 app.post('/api/v1/tours', (req, res) => {
 	// console.log(req.body);
 
@@ -77,6 +80,39 @@ app.post('/api/v1/tours', (req, res) => {
 
 	// res.send('Done'); //We cannout send the reponse twice.
 })
+
+//================ Update a tours =========================
+app.patch('/api/v1/tours/:id', (req, res) => {
+
+	const id = req.params.id * 1;//get the id from request
+
+	const tour = tours.find(ele => {//Find the tour from the tours array
+		return ele.id === id;
+	});
+
+	//404 Error handler
+	if(!tours){
+		res.status(404).send({
+			status: "fail",
+			message: "Invalid ID"
+		});
+	}
+
+	//201 Respose handler
+	const updatedTour = Object.assign(tour, req.body);//Update the tour
+
+	//Write the file with the update tour and send back the updated tour
+	fs.writeFile(path.join(__dirname,'./dev-data/data/tours-simple.json'), JSON.stringify(tours), err => {
+
+		res.status(201).send({
+			status: "success",
+			data: {
+				updatedTour
+			}
+		});
+
+	});
+});
 
 app.listen(port, () => {
 	console.log(`Server started on http://localhost:${port}`);
