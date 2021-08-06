@@ -22,7 +22,7 @@ app.get('/api/v1/tours', (req, res) => {
 	});
 });
 
-//================ Get Single tours =========================
+//================ Get Single tour =========================
 app.get('/api/v1/tours/:id', (req, res) => {
 	// console.log(req.params);
 
@@ -59,7 +59,7 @@ app.get('/api/v1/tours/:id', (req, res) => {
 });
 
 
-//================ Add a new tours =========================
+//================ Add a new tour =========================
 app.post('/api/v1/tours', (req, res) => {
 	// console.log(req.body);
 
@@ -81,7 +81,7 @@ app.post('/api/v1/tours', (req, res) => {
 	// res.send('Done'); //We cannout send the reponse twice.
 })
 
-//================ Update a tours =========================
+//================ Update a tour =========================
 app.patch('/api/v1/tours/:id', (req, res) => {
 
 	const id = req.params.id * 1;//get the id from request
@@ -111,6 +111,44 @@ app.patch('/api/v1/tours/:id', (req, res) => {
 			}
 		});
 
+	});
+});
+
+//================ Delete a tour =========================
+app.delete('/api/v1/tours/:id', (req, res) => {
+	const id = req.params.id * 1;//Took the id from request
+
+	const tour = tours.find(ele => {//Finding the tour from the all the of tours
+		return ele.id === id;
+	});
+
+	//Handling 404 error (If no tour found with the id)
+	if(!tour){
+		res.status(404).send({
+			status: "fail",
+			message: "Invalid ID"
+		});
+	}
+
+	// res.status(204).send({
+	// 	status: "success",
+	// 	data: null
+	// });
+
+	//204 Status handler
+	//I will take all the tours which don't match the 'tour.id' in a single array and then overwrite the json file with this new array.
+
+	//Create a new array of tours excluding the tour which has to be deleted
+	const toursAfterDeletion = tours.filter(ele => {
+		return ele.id !== tour.id;
+	});
+
+	//Rewritting the file with the new tours array.
+	fs.writeFile(path.join(__dirname,'./dev-data/data/tours-simple.json'),JSON.stringify(toursAfterDeletion), err => {
+		res.status(204).send({
+			status: "success",
+			data: null
+		});
 	});
 });
 
