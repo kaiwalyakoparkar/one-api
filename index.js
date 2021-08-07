@@ -11,8 +11,7 @@ const tours = require(path.join(__dirname, './dev-data/data/tours-simple.json'))
 app.use(express.json());
 
 //================ Get all tours =========================
-app.get('/api/v1/tours', (req, res) => {
-
+const getAllTours = (req, res) => {
 	res.json({
 		status: 'success',
 		result: tours.length,
@@ -20,14 +19,13 @@ app.get('/api/v1/tours', (req, res) => {
 			tours
 		}
 	});
-});
+}
 
 //================ Get Single tour =========================
-app.get('/api/v1/tours/:id', (req, res) => {
+const getSingleTour = (req, res) => {
 	// console.log(req.params);
 
 	const id = req.params.id * 1;
-
 
 	//tours.find will return an object so we can access value using eg (tour.id)
 	const tour = tours.find(ele => {
@@ -39,7 +37,6 @@ app.get('/api/v1/tours/:id', (req, res) => {
 	// 	return ele.id === id;
 	// });
 
-
 	// if(id > tours.length){ //This is also one of the way to check invalid url
 	if(!tour){
 		res.status(404).send({
@@ -49,18 +46,16 @@ app.get('/api/v1/tours/:id', (req, res) => {
 		return;
 	}
 
-
 	res.status(200).send({
 		status: "success",
 		data: {
 			tour
 		}
 	})
-});
-
+};
 
 //================ Add a new tour =========================
-app.post('/api/v1/tours', (req, res) => {
+const addNewTour = (req, res) => {
 	// console.log(req.body);
 
 	const newId = (tours[tours.length - 1].id)+1;
@@ -79,10 +74,12 @@ app.post('/api/v1/tours', (req, res) => {
 	})
 
 	// res.send('Done'); //We cannout send the reponse twice.
-})
+}
+
+
 
 //================ Update a tour =========================
-app.patch('/api/v1/tours/:id', (req, res) => {
+const updateSingleTour = (req, res) => {
 
 	const id = req.params.id * 1;//get the id from request
 
@@ -112,10 +109,11 @@ app.patch('/api/v1/tours/:id', (req, res) => {
 		});
 
 	});
-});
+}
+
 
 //================ Delete a tour =========================
-app.delete('/api/v1/tours/:id', (req, res) => {
+const deleteSingleTour = (req, res) => {
 	const id = req.params.id * 1;//Took the id from request
 
 	const tour = tours.find(ele => {//Finding the tour from the all the of tours
@@ -129,11 +127,6 @@ app.delete('/api/v1/tours/:id', (req, res) => {
 			message: "Invalid ID"
 		});
 	}
-
-	// res.status(204).send({
-	// 	status: "success",
-	// 	data: null
-	// });
 
 	//204 Status handler
 	//I will take all the tours which don't match the 'tour.id' in a single array and then overwrite the json file with this new array.
@@ -150,8 +143,29 @@ app.delete('/api/v1/tours/:id', (req, res) => {
 			data: null
 		});
 	});
-});
+}
 
+//=========== All Route Handlers (Not efficient) ===================
+// app.get('/api/v1/tours', getAllTours);
+// app.get('/api/v1/tours/:id', getSingleTour);
+// app.post('/api/v1/tours', addNewTour);
+// app.patch('/api/v1/tours/:id', updateSingleTour);
+// app.delete('/api/v1/tours/:id', deleteSingleTour);
+
+//=========== All Route Handlers (Efficient) =================
+app
+	.route('/api/v1/tours')//Common route
+	.get(getAllTours)//get operation on this route
+	.post(addNewTour);//post operation on this route
+
+app
+	.route('/api/v1/tours/:id')//Common route
+	.get(getSingleTour)//get operation on this route
+	.patch(updateSingleTour)//patch operation on this route
+	.delete(deleteSingleTour);//delte operation on this route
+
+
+//================= Starting the server==============
 app.listen(port, () => {
 	console.log(`Server started on http://localhost:${port}`);
 });
