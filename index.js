@@ -1,16 +1,8 @@
-
-
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
-
-const port = 3000;
-
-const tours = require(path.join(
-  __dirname,
-  './dev-data/data/tours-simple.json'
-));
 
 //Done for the POST method
 app.use(express.json());
@@ -20,6 +12,14 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
+//External Middleware
+app.use(morgan('dev'));
+
+const tours = require(path.join(
+  __dirname,
+  './dev-data/data/tours-simple.json'
+));
 
 //================ Get all tours =========================
 const getAllTours = (req, res) => {
@@ -185,6 +185,8 @@ app
   .delete(deleteSingleTour); //delte operation on this route
 
 //================= Starting the server==============
+const port = 3000;
+
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
