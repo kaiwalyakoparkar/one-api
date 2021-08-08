@@ -165,6 +165,46 @@ const deleteSingleTour = (req, res) => {
   );
 };
 
+//================ Get all users =========================
+const getAllUsers = (req, res) => {
+  res.status(503).send({
+    status: "error",
+    message: "This route is not defined yet"
+  });
+}
+
+//================ Add new users =========================
+const addNewUser = (req, res) => {
+  res.status(503).send({
+    status: "error",
+    message: "This route is not defined yet"
+  });
+}
+
+//================ Get single users =========================
+const getSingleUser = (req, res) => {
+  res.status(503).send({
+    status: "error",
+    message: "This route is not defined yet"
+  });
+}
+
+//================ Update single users =========================
+const updateSingleUser = (req, res) => {
+  res.status(503).send({
+    status: "error",
+    message: "This route is not defined yet"
+  });
+}
+
+//================ Delete a users =========================
+const deleteSingleUser = (req, res) => {
+  res.status(503).send({
+    status: "error",
+    message: "This route is not defined yet"
+  });
+}
+
 //=========== All Route Handlers (Not efficient) ===================
 // app.get('/api/v1/tours', getAllTours);
 // app.get('/api/v1/tours/:id', getSingleTour);
@@ -172,7 +212,7 @@ const deleteSingleTour = (req, res) => {
 // app.patch('/api/v1/tours/:id', updateSingleTour);
 // app.delete('/api/v1/tours/:id', deleteSingleTour);
 
-//=========== All Route Handlers (Efficient) =================
+//=========== All Tour Route Handlers (Efficient) =================
 app
   .route('/api/v1/tours') //Common route
   .get(getAllTours) //get operation on this route
@@ -184,9 +224,52 @@ app
   .patch(updateSingleTour) //patch operation on this route
   .delete(deleteSingleTour); //delte operation on this route
 
+//=========== All Users Route Handlers (Efficient) =================
+
+app
+  .route('/api/v1/users')
+  .get(getAllUsers)
+  .post(addNewUser);
+
+app
+  .route('/api/v1/users/:id')
+  .get(getSingleUser)
+  .patch(updateSingleUser)
+  .delete(deleteSingleUser);
+
 //================= Starting the server==============
 const port = 3000;
 
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
+
+
+/*
+Evolution of the routers
+
+================ 1. Naive ===============
+
+app.get('/route', (req, res) => {
+  //Handler code
+});
+
+================ 2. Moderate ============
+
+const handlerFunction = (req, res) => {
+  //Handler Code
+}
+
+app.get('/route', handlerFunction);
+
+================ 3. Advance =============
+
+const handlerFunction = (req, res) => {
+  //Handler code
+}
+
+app
+  .route('/route')
+  .get(handlerFunction)
+  .otherHTTPrequest(otherHandler);
+*/
