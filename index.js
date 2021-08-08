@@ -15,10 +15,17 @@ const tours = require(path.join(
 //Done for the POST method
 app.use(express.json());
 
+//My custom middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 //================ Get all tours =========================
 const getAllTours = (req, res) => {
   res.json({
     status: 'success',
+    requestedAt: req.requestTime,
     result: tours.length,
     data: {
       tours
