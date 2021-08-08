@@ -213,30 +213,37 @@ const deleteSingleUser = (req, res) => {
 // app.delete('/api/v1/tours/:id', deleteSingleTour);
 
 //=========== All Tour Route Handlers (Efficient) =================
-app
-  .route('/api/v1/tours') //Common route
+
+const tourRoute = express.Router();
+
+tourRoute
+  .route('/') //Common route
   .get(getAllTours) //get operation on this route
   .post(addNewTour); //post operation on this route
 
-app
-  .route('/api/v1/tours/:id') //Common route
+tourRoute
+  .route('/:id') //Common route
   .get(getSingleTour) //get operation on this route
   .patch(updateSingleTour) //patch operation on this route
   .delete(deleteSingleTour); //delte operation on this route
 
-//=========== All Users Route Handlers (Efficient) =================
+app.use('/api/v1/tours', tourRoute);
 
-app
-  .route('/api/v1/users')
+//=========== All Users Route Handlers (Efficient) =================
+const userRoute = express.Router();
+
+userRoute
+  .route('/')
   .get(getAllUsers)
   .post(addNewUser);
 
-app
-  .route('/api/v1/users/:id')
+userRoute
+  .route('/:id')
   .get(getSingleUser)
   .patch(updateSingleUser)
   .delete(deleteSingleUser);
 
+app.use('/api/v1/users', userRoute);
 //================= Starting the server==============
 const port = 3000;
 
