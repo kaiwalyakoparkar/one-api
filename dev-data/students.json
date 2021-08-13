@@ -1,0 +1,102 @@
+[
+	{
+		"id": 1,
+		"name": "Gulkand Kumar",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 2,
+		"name": "Pritam Kumar",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 3,
+		"name": "Mukund Mishra",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 4,
+		"name": "Rahul Tygi",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 5,
+		"name": "Priya Chaturvedi",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 6,
+		"name": "Sonum Gupta",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 7,
+		"name": "Gita Joshi",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 8,
+		"name": "Priyanka Gandhi",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 9,
+		"name": "Janvhi Kapoor",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	},
+	{
+		"id": 10,
+		"name": "Gurpreet Sigh",
+		"age": "12",
+		"interests": ["guitar", "singing", "drumming"],
+		"dob": "12/12/12",
+		"class": "6",
+		"div": "A",
+		"optional-french": false
+	}
+]
