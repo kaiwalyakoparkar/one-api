@@ -98,15 +98,5 @@
 		"class": "6",
 		"div": "A",
 		"optional-french": false
-	},
-	{
-		"id": 11,
-		"name": "Update user",
-		"age": "13",
-		"interests": ["guitar", "singing", "drumming"],
-		"dob": "12/12/12",
-		"class": "10",
-		"div": "B",
-		"optional-french": true
 	}
 ]
