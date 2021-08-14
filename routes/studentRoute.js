@@ -8,6 +8,16 @@ const studentRecord = require(path.join(
 
 const route = express.Router();
 
-route.route('/').get(studentRecord.getAllStudents);
+//get request (all students)
+route
+	.route('/')
+	.get(studentRecord.getAllStudents)
+	.post(studentRecord.addStudent);
+
+route
+	.route('/:id')
+	.get(studentRecord.getSingleStudent)
+	.patch(studentRecord.updateStudent)
+	.delete(studentRecord.deleteStudent);
 
 module.exports = route;

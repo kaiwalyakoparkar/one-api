@@ -4,7 +4,7 @@
   "description": "This api is build as a practice project",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
