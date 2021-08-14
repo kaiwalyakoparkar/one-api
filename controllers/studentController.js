@@ -94,8 +94,10 @@ exports.deleteStudent = (req, res) => {
 		return e.id !== findStudentDataToDelete.id;
 	});
 
+	// console.log(excludeStudentDataToDelete);
+
 	fs.writeFile(
-		path.join('../dev-data/students.json'),
+		path.join(__dirname, '../dev-data/students.json'),
 		JSON.stringify(excludeStudentDataToDelete),
 		(err) => {
 			res.status(204).json({
