@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+// const logHandler = require('../logHandler.js');
 
 const studentRecord = require(path.join(
 	__dirname,
@@ -7,6 +8,8 @@ const studentRecord = require(path.join(
 ));
 
 const route = express.Router();
+
+// logHandler.log(logHandler.level, logHandler.message);
 
 //get request (all students)
 route
