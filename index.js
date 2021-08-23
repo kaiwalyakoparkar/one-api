@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+// const logHandler = require('./logHandler.js');
 
 const data = require(path.join(__dirname, './dev-data/students.json'));
 const app = express();
