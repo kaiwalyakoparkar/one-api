@@ -1,109 +1,96 @@
-const path = require('path');
-const fs = require('fs');
-const data = require(path.join(__dirname, '../dev-data/students.json'));
+const mongoose = require('mongoose');
+const Student = require('../models/studentModel.js');
 
-exports.checkId = (req, res, next, val) => {
-	if (req.params.id >= data.length) {
-		res.send(404).json({
+exports.getAllStudents = async (req, res) => {
+	try {
+		const allStudents = await Student.find();
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				allStudents,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
 			status: 'fail',
-			message: 'Invalid Id',
+			message: err,
 		});
 	}
-
-	next();
 };
 
-exports.getAllStudents = (req, res) => {
-	res.status(200).json({
-		status: 'success',
-		data: {
-			data,
-		},
-	});
-};
+exports.getSingleStudent = async (req, res) => {
+	try {
+		const singleStudent = await Student.findById(req.params.id);
 
-exports.getSingleStudent = (req, res) => {
-	const studentData = data.filter((e) => {
-		return e.id == req.params.id;
-	});
-
-	res.status(200).json({
-		status: 'success',
-		data: {
-			studentData,
-		},
-	});
-};
-
-exports.addStudent = (req, res) => {
-	if (!req.body.name) {
-		res.status(503).json({
-			status: 'error',
-			message: 'you should provide a body to a post request',
+		res.status(200).json({
+			status: 'success',
+			data: {
+				singleStudent,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
 		});
 	}
-
-	const newStudentId = data[data.length - 1].id + 1;
-	const newStudentData = Object.assign({ id: newStudentId }, req.body);
-
-	data.push(newStudentData);
-
-	fs.writeFile(
-		path.join(__dirname, '../dev-data/students.json'),
-		JSON.stringify(data),
-		(err) => {
-			res.status(201).json({
-				status: 'success',
-				data: {
-					newStudentData,
-				},
-			});
-		}
-	);
 };
 
-exports.updateStudent = (req, res) => {
-	const findStudentDataToUpdate = data.find((e) => {
-		return e.id == req.params.id;
-	});
+exports.addStudent = async (req, res) => {
+	try {
+		const addedStudent = await Student.create(req.body);
 
-	const updatedStudent = Object.assign(findStudentData, req.body);
-
-	fs.writeFile(
-		path.join(__dirname, '../dev-data/students.json'),
-		JSON.stringify(data),
-		(err) => {
-			res.status(201).json({
-				status: 'success',
-				data: {
-					updatedStudent,
-				},
-			});
-		}
-	);
+		res.status(201).json({
+			status: 'success',
+			data: {
+				addedStudent,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };
 
-exports.deleteStudent = (req, res) => {
-	const id = req.params.id * 1;
+exports.updateStudent = async (req, res) => {
+	try {
+		const updatedStudent = await Student.findByIdAndUpdate(
+			req.params.id,
+			req.body,
+			{
+				new: true,
+				runValidators: true,
+			}
+		);
 
-	const findStudentDataToDelete = data.find((e) => {
-		return e.id === id;
-	});
+		res.status(201).json({
+			status: 'success',
+			data: {
+				updatedStudent,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
+		});
+	}
+};
 
-	const excludeStudentDataToDelete = data.filter((e) => {
-		return e.id !== findStudentDataToDelete.id;
-	});
-
-	// console.log(excludeStudentDataToDelete);
-
-	fs.writeFile(
-		path.join(__dirname, '../dev-data/students.json'),
-		JSON.stringify(excludeStudentDataToDelete),
-		(err) => {
-			res.status(204).json({
-				status: 'success',
-				data: null,
-			});
-		}
-	);
+exports.deleteStudent = async (req, res) => {
+	try {
+		await Student.findByIdAndDelete(req.params.id);
+		res.status(204).json({
+			status: 'success',
+			data: null,
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };

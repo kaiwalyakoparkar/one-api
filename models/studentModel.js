@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const studentSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: [true, 'Student should have a unique name']],
+		required: [true, 'Student should have a unique name'],
 	},
 	age: Number,
 	rollNo: {
@@ -12,7 +12,6 @@ const studentSchema = new mongoose.Schema({
 		unique: true,
 	},
 	foi: String,
-	dob: Number,
 });
 
 const Student = mongoose.model('Student', studentSchema);
